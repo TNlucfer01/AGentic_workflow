@@ -1,6 +1,12 @@
+import os
+import getpass
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 from langchain_core.documents import Document
 import pypdf
-from langchain_core.documents import Document
 
 # setting the documents
 documents = [
@@ -18,11 +24,8 @@ for i in range(len(documents)):
     print(f"{i}", documents[i].page_content)
 
 # setting the embedding model for our agent
-import getpass
-import os
-
 file_path = "./nke-10k-2023.pdf"
-if not os.environ.get("GEMINI_API_KEY"):
+if not os.environ.get("GEMINI_API_KEY") and not os.environ.get("GOOGLE_API_KEY"):
     os.environ["GEMINI_API_KEY"] = getpass.getpass("Enter API key for Google Gemini: ")
 
 
